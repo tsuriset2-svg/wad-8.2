@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Number to Words</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        input {
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 5px 10px;
+        }
+
+        /* Output styling */
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: olive;
+            font-family: "Times New Roman", serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Number to Words</h2>
+
+    <input type="text" id="num" placeholder="Enter number (0-999)">
+    <br><br>
+    <button onclick="convert()">Convert</button>
+
+    <p id="result"></p>
+
+    <script>
+        function convert() {
+            var n = document.getElementById("num").value;
+            var result = document.getElementById("result");
+
+            if (!/^\d{1,3}$/.test(n)) {
+                result.innerText = "Invalid Input";
+                return;
+            }
+
+            n = parseInt(n);
+
+            var ones = ["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"];
+            var teens = ["Ten","Eleven","Twelve","Thirteen","Fourteen",
+                         "Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
+            var tens = ["","","Twenty","Thirty","Forty","Fifty",
+                        "Sixty","Seventy","Eighty","Ninety"];
+
+            var words = "";
+
+            if (n === 0) {
+                words = "Zero";
+            } else {
+                if (Math.floor(n / 100) > 0) {
+                    words += ones[Math.floor(n / 100)] + " Hundred ";
+                    n = n % 100;
+                }
+
+                if (n >= 10 && n <= 19) {
+                    words += teens[n - 10];
+                } else {
+                    if (Math.floor(n / 10) > 0) {
+                        words += tens[Math.floor(n / 10)] + " ";
+                    }
+                    if (n % 10 > 0) {
+                        words += ones[n % 10];
+                    }
+                }
+            }
+
+            result.innerText = words.trim();
+        }
+    </script>
+
+</body>
+</html>
